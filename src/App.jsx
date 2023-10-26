@@ -35,14 +35,11 @@ function App() {
   };
 
   return (
-    <>
-      Vite App
-      <Notes
-        notesData={notesData}
-        size={notesLength}
-        updateNotesData={updateNotesData}
-      />
-    </>
+    <Notes
+      notesData={notesData}
+      size={notesLength}
+      updateNotesData={updateNotesData}
+    />
   );
 }
 
