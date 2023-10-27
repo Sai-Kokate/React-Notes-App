@@ -8,7 +8,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
   const [displayCreateNote, setDisplayCreateNote] = useState(false);
   const [groupName, setGroupName] = useState("");
   const [backgroundColor, setBackgroundColor] = useState("");
-  const [noteSelected, setNoteSelected] = useState("");
+  const [noteSelected, setNoteSelected] = useState({});
   const [shownotesContent, setShownotesContent] = useState(false);
   const [text, setText] = useState("");
   const [savedEntries, setSavedEntries] = useState([]);
@@ -55,7 +55,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
 
   const handleNoteClicked = (note) => {
     setShownotesContent(true);
-    setNoteSelected(note.key);
+    setNoteSelected(note);
     setSavedEntries(note.content);
   };
 
@@ -70,7 +70,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
       setText("");
 
       const updatedNotesData = notesData.map((note) => {
-        if (note.key === noteSelected) {
+        if (note.key === noteSelected.key) {
           return {
             title: note.title,
             bgColor: note.bgColor,
@@ -89,7 +89,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
-        <h1 className={styles.pocketNotesHeader}>Pocket Notes</h1>
+        <div className={styles.pocketNotesHeader}>Pocket Notes</div>
         <div className={styles.leftInnerContainer}>
           <button onClick={openCreateNote} className={styles.createNotesButton}>
             + Create Notes group
@@ -105,6 +105,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                   onClick={() => handleNoteClicked(note)}
                   key={note.key}
                   className={styles.noteTitle}
+                  style={{
+                    backgroundColor: `${
+                      note.key === noteSelected.key ? "#F7ECDC" : ""
+                    }`,
+                  }}
                 >
                   <div
                     style={{
@@ -124,76 +129,176 @@ const Notes = ({ notesData, size, updateNotesData }) => {
       <div className={styles.rightContainer}>
         {/* content area */}
         {!shownotesContent && (
-          <div>
+          <div
+            style={{
+              position: "relative",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              height: "100%",
+            }}
+          >
             <div
               style={{
-                background: `url(${backgroundImage}) no-repeat center center`,
-                backgroundSize: "cover",
-                width: "626px",
-                height: "313px",
-              }}
-            ></div>
-            <div
-              style={{
-                color: "#000",
-                fontSize: "50px",
-                fontWeight: 400,
-                lineHeight: "normal",
-                letterSpacing: "1px",
-              }}
-            >
-              Pocket Notes
-            </div>
-            <div
-              style={{
-                color: "#292929",
-                fontSize: "22px",
-                fontWeight: "400",
-                lineHeight: "32px" /* 145.455% */,
-                letterSpacing: "0.44px",
-                width: "646px",
-                height: "64px",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "center",
+                alignItems: "center",
+                gap: "10px",
+                height: "auto",
               }}
             >
-              Send and receive messages without keeping your phone online. Use
-              Pocket Notes on up to 4 linked devices and 1 mobile phone
-            </div>
-            <div
-              style={{
-                color: "#292929",
-                fontSize: "22px",
-                fontWeight: "400",
-                lineHeight: "32px" /* 145.455% */,
-                letterSpacing: "0.44px",
-              }}
-            >
-              <IoMdLock />
-              end-to-end encrypted
+              <div
+                style={{
+                  background: `url(${backgroundImage}) no-repeat center center`,
+                  backgroundSize: "cover",
+                  width: "626px",
+                  height: "313px",
+                }}
+              ></div>
+              <div
+                style={{
+                  color: "#000",
+                  fontSize: "50px",
+                  fontWeight: 400,
+                  lineHeight: "normal",
+                  letterSpacing: "1px",
+                }}
+              >
+                Pocket Notes
+              </div>
+              <div
+                style={{
+                  color: "#292929",
+                  fontSize: "22px",
+                  fontWeight: "400",
+                  lineHeight: "32px" /* 145.455% */,
+                  letterSpacing: "0.44px",
+                  width: "646px",
+                  height: "64px",
+                }}
+              >
+                Send and receive messages without keeping your phone online. Use
+                Pocket Notes on up to 4 linked devices and 1 mobile phone
+              </div>
+              <div
+                style={{
+                  color: "#292929",
+                  fontSize: "22px",
+                  fontWeight: "400",
+                  lineHeight: "32px" /* 145.455% */,
+                  letterSpacing: "0.44px",
+                  position: "absolute",
+                  bottom: "20px",
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                }}
+              >
+                <IoMdLock />
+                end-to-end encrypted
+              </div>
             </div>
           </div>
         )}
 
         {/* selected note content */}
         {shownotesContent && (
-          <div>
-            <div>
-              <ul>
-                {savedEntries?.length > 0 &&
-                  savedEntries.map((entry, index) => (
-                    <li key={index}>
-                      <strong>{entry.timestamp}:</strong> {entry.text}
-                    </li>
-                  ))}
-              </ul>
+          <div
+            style={{
+              height: "100%",
+              width: "100%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "space-between",
+              overflowY: "auto",
+            }}
+          >
+            <div style={{ height: "12%" }}>
+              <div
+                className={styles.noteTitle}
+                style={{
+                  backgroundColor: "grey",
+                  borderRadius: "0",
+                }}
+              >
+                <div
+                  style={{
+                    backgroundColor: `${noteSelected.bgColor}`,
+                  }}
+                  className={styles.noteIcon}
+                >
+                  {noteSelected.title.slice(0, 2)}
+                </div>
+                <div>{noteSelected.title}</div>
+              </div>
             </div>
-            <div>
+            <div
+              style={{
+                padding: "2%",
+                display: "flex",
+                flexDirection: "column",
+                justifyContent: "flex-start",
+                alignItems: "center",
+                gap: "10px",
+                height: "63%",
+                msOverflowY: "auto",
+              }}
+            >
+              {savedEntries?.length > 0 &&
+                savedEntries.map((entry, index) => (
+                  <div key={index} className={styles.note}>
+                    <div>
+                      <div>
+                        {new Date(entry.timestamp).toLocaleTimeString([], {
+                          hour: "2-digit",
+                          minute: "2-digit",
+                        })}
+                      </div>
+                      <div>
+                        {new Date(entry.timestamp).toLocaleDateString("en-US", {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        })}
+                      </div>
+                    </div>
+                    <div>{entry.text}</div>
+                  </div>
+                ))}
+            </div>
+            <div
+              style={{
+                width: "100%",
+                height: "25%",
+                backgroundColor: "grey",
+                padding: "10px",
+                position: "relative",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 onKeyDown={handleKeyPress}
                 placeholder="Enter your text here..........."
+                style={{
+                  width: "100%",
+                  height: "100%",
+                }}
               ></textarea>
-              <div>
+              <div
+                style={{
+                  position: "absolute",
+                  right: "2%",
+                  bottom: "6%",
+                  height: "30px",
+                  width: "30px",
+                  fontSize: "25px",
+                }}
+              >
                 <IoSend />
               </div>
             </div>
@@ -203,56 +308,68 @@ const Notes = ({ notesData, size, updateNotesData }) => {
       {/* create notes modal */}
       {displayCreateNote && (
         <div
-          style={{
-            width: "100vw",
-            height: "100vh",
-            backgroundColor: "#2F2F2FBF",
-            display: "flex",
-          }}
+          className={styles.createNotesBg}
           onClick={() => {
             setDisplayCreateNote(false);
             setGroupName("");
             setBackgroundColor("");
           }}
         >
-          <div onClick={(e) => e.stopPropagation()}>
-            <p>Create New Notes group</p>
+          <div
+            onClick={(e) => e.stopPropagation()}
+            className={styles.createNotesModal}
+          >
+            <div
+              style={{
+                marginBottom: "10px",
+              }}
+            >
+              Create New Notes group
+            </div>
             {/* note group name */}
-            <div>
+            <div className={styles.modalInnerContainer}>
               <label>Group Name</label>
               <input
                 type="text"
                 placeholder="Enter your group name...."
                 name="groupName"
                 onChange={handleGroupName}
+                className={styles.inputGroupName}
               ></input>
             </div>
             {/* note group color */}
-            <div>
+            <div className={styles.modalInnerContainer}>
               <p>Choose colour</p>
-              {colors.map((color) => {
-                return (
-                  <div
-                    onClick={() => {
-                      handleSelectColor(color);
-                    }}
-                    style={{
-                      width: "40px",
-                      height: "40px",
-                      borderRadius: "50%",
-                      backgroundColor: `${color}`,
-                      border: `${
-                        color === backgroundColor ? "2px solid white" : ""
-                      }`,
-                    }}
-                    key={color}
-                  ></div>
-                );
-              })}
+              <div className={styles.chooseColor}>
+                {colors.map((color) => {
+                  return (
+                    <div
+                      onClick={() => {
+                        handleSelectColor(color);
+                      }}
+                      style={{
+                        width: "40px",
+                        height: "40px",
+                        borderRadius: "50%",
+                        backgroundColor: `${color}`,
+                        border: `${
+                          color === backgroundColor ? "2px solid green" : ""
+                        }`,
+                      }}
+                      key={color}
+                    ></div>
+                  );
+                })}
+              </div>
             </div>
             {/* create button */}
-            <div>
-              <button onClick={handleCreateNote}>Create</button>
+            <div className={styles.createButtonContainer}>
+              <button
+                onClick={handleCreateNote}
+                className={styles.createButton}
+              >
+                Create
+              </button>
             </div>
           </div>
         </div>
