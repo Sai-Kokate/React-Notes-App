@@ -59,43 +59,51 @@ const Notes = ({ notesData, size, updateNotesData }) => {
     setSavedEntries(note.content);
   };
 
+  const updateNoteContent = () => {
+    const entry = {
+      text: text,
+      timestamp: new Date().toLocaleString(),
+    };
+
+    setSavedEntries([...savedEntries, entry]);
+    setText("");
+
+    const updatedNotesData = notesData.map((note) => {
+      if (note.key === noteSelected.key) {
+        return {
+          title: note.title,
+          bgColor: note.bgColor,
+          content: [...savedEntries, entry],
+          key: note.key,
+        };
+      } else {
+        return note;
+      }
+    });
+
+    updateNotesData(updatedNotesData, size);
+  };
+
   const handleKeyPress = (event) => {
     if (event.key === "Enter" && text.trim() !== "") {
-      const entry = {
-        text: text,
-        timestamp: new Date().toLocaleString(),
-      };
-
-      setSavedEntries([...savedEntries, entry]);
-      setText("");
-
-      const updatedNotesData = notesData.map((note) => {
-        if (note.key === noteSelected.key) {
-          return {
-            title: note.title,
-            bgColor: note.bgColor,
-            content: [...savedEntries, entry],
-            key: note.key,
-          };
-        } else {
-          return note;
-        }
-      });
-
-      updateNotesData(updatedNotesData, size);
+      updateNoteContent();
     }
+  };
+
+  const handleEnterClicked = () => {
+    updateNoteContent();
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.leftContainer}>
         <div className={styles.pocketNotesHeader}>Pocket Notes</div>
+
         <div className={styles.leftInnerContainer}>
           <button onClick={openCreateNote} className={styles.createNotesButton}>
             + Create Notes group
           </button>
         </div>
-
         {/* note titles */}
         {notesData && notesData?.length > 0 && (
           <div className={styles.notesGroup}>
@@ -137,6 +145,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               alignItems: "center",
               width: "100%",
               height: "100%",
+              overflowY: "hidden",
             }}
           >
             <div
@@ -218,7 +227,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               <div
                 className={styles.noteTitle}
                 style={{
-                  backgroundColor: "grey",
+                  backgroundColor: "#E8E8E8",
                   borderRadius: "0",
                 }}
               >
@@ -242,13 +251,17 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 alignItems: "center",
                 gap: "10px",
                 height: "63%",
-                msOverflowY: "auto",
+                overflowY: "auto",
               }}
             >
               {savedEntries?.length > 0 &&
                 savedEntries.map((entry, index) => (
                   <div key={index} className={styles.note}>
-                    <div>
+                    <div
+                      style={{
+                        overflowY: "hidden",
+                      }}
+                    >
                       <div>
                         {new Date(entry.timestamp).toLocaleTimeString([], {
                           hour: "2-digit",
@@ -263,7 +276,13 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                         })}
                       </div>
                     </div>
-                    <div>{entry.text}</div>
+                    <div
+                      style={{
+                        overflowY: "hidden",
+                      }}
+                    >
+                      {entry.text}
+                    </div>
                   </div>
                 ))}
             </div>
@@ -271,7 +290,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               style={{
                 width: "100%",
                 height: "25%",
-                backgroundColor: "grey",
+                backgroundColor: "#E8E8E8",
                 padding: "10px",
                 position: "relative",
                 display: "flex",
@@ -283,13 +302,10 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
                 onKeyDown={handleKeyPress}
-                placeholder="Enter your text here..........."
-                style={{
-                  width: "100%",
-                  height: "100%",
-                }}
+                className={styles.textArea}
               ></textarea>
               <div
+                onClick={handleEnterClicked}
                 style={{
                   position: "absolute",
                   right: "2%",
@@ -297,6 +313,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                   height: "30px",
                   width: "30px",
                   fontSize: "25px",
+                  overflowY: "hidden",
                 }}
               >
                 <IoSend />

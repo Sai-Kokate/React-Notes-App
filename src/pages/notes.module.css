@@ -13,10 +13,12 @@
   width: 25%;
   height: 100%;
   padding: 2rem 1.5rem;
+  overflow-y: hidden;
 }
 
 .leftInnerContainer{
   padding: 0 1rem;
+  overflow-y: auto;
 }
 
 .notesGroup{
@@ -71,6 +73,7 @@
   width: 75%;
   height: 100%;
   background-color: #F7ECDC;
+  overflow-y: hidden;
 }
 
 .pocketNotesHeader{
@@ -182,6 +185,24 @@
   font-weight: 400;
   line-height: 160.188%; /* 28.834px */
   letter-spacing: 0.63px;
+  overflow-y: hidden;
+}
+
+.textArea{
+  border: 1px solid #CCC;
+  border-radius: 9px;
+  overflow-y: auto;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.textArea::placeholder{
+  color: #9A9A9A;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 0.596px;
 }
 
 
