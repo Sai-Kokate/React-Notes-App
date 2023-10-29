@@ -136,70 +136,15 @@ const Notes = ({ notesData, size, updateNotesData }) => {
       <div className={styles.rightContainer}>
         {/* content area */}
         {!shownotesContent && (
-          <div
-            style={{
-              position: "relative",
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              width: "100%",
-              height: "100%",
-              overflowY: "hidden",
-            }}
-          >
-            <div
-              style={{
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "center",
-                gap: "10px",
-                height: "auto",
-                width: "100%",
-              }}
-            >
+          <div className={styles.contentArea}>
+            <div className={styles.innerContentArea}>
               <div className={styles.bgPic}></div>
-              <div
-                style={{
-                  color: "#000",
-                  fontSize: "40px",
-                  fontWeight: 400,
-                  lineHeight: "normal",
-                  letterSpacing: "1px",
-                }}
-              >
-                Pocket Notes
-              </div>
-              <div
-                style={{
-                  color: "#292929",
-                  fontSize: "18px",
-                  fontWeight: "400",
-                  lineHeight: "32px" /* 145.455% */,
-                  letterSpacing: "0.44px",
-                  width: "50%",
-                }}
-              >
+              <div className={styles.pocketNotesText}>Pocket Notes</div>
+              <div className={styles.contentAreaSubheading}>
                 Send and receive messages without keeping your phone online. Use
                 Pocket Notes on up to 4 linked devices and 1 mobile phone
               </div>
-              <div
-                style={{
-                  color: "#292929",
-                  fontSize: "20px",
-                  fontWeight: "400",
-                  letterSpacing: "0.44px",
-                  position: "absolute",
-                  bottom: "20px",
-                  left: "50%",
-                  transform: "translateX(-50%)",
-                  textAlign: "center",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: "5px",
-                }}
-              >
+              <div className={styles.encryptionText}>
                 <IoMdLock />
                 end-to-end encrypted
               </div>
@@ -209,19 +154,8 @@ const Notes = ({ notesData, size, updateNotesData }) => {
 
         {/* selected note content */}
         {shownotesContent && (
-          <div
-            style={{
-              height: "100%",
-              width: "100%",
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-between",
-              overflowY: "auto",
-            }}
-          >
-            <div
-            //  style={{ height: "12%" }}
-            >
+          <div className={styles.notesContainer}>
+            <div>
               <div
                 className={styles.noteTitle}
                 style={{
@@ -240,18 +174,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 <div>{noteSelected.title}</div>
               </div>
             </div>
-            <div
-              style={{
-                padding: "2%",
-                // display: "flex",
-                // flexDirection: "column",
-                // justifyContent: "flex-start",
-                // alignItems: "center",
-                gap: "10px",
-                height: "63%",
-                overflowY: "auto",
-              }}
-            >
+            <div className={styles.notesContent}>
               {savedEntries?.length > 0 &&
                 savedEntries.map((entry, index) => (
                   <div key={index} className={styles.note}>
@@ -261,7 +184,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                         overflowY: "hidden",
                       }}
                     >
-                      <div>
+                      <div
+                        style={{
+                          width: "100%",
+                        }}
+                      >
                         {new Date(entry.timestamp).toLocaleTimeString([], {
                           hour: "2-digit",
                           minute: "2-digit",
@@ -279,30 +206,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                         })}
                       </div>
                     </div>
-                    <div
-                      style={{
-                        overflowY: "hidden",
-                        height: "auto",
-                        width: "85%",
-                      }}
-                    >
-                      {entry.text}
-                    </div>
+                    <div className={styles.notesText}>{entry.text}</div>
                   </div>
                 ))}
             </div>
-            <div
-              style={{
-                width: "100%",
-                height: "25%",
-                backgroundColor: "#E8E8E8",
-                padding: "10px",
-                position: "relative",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
+            <div className={styles.textInputContainer}>
               <textarea
                 value={text}
                 onChange={(e) => setText(e.target.value)}
@@ -310,18 +218,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 className={styles.textArea}
                 placeholder="Enter your text here..........."
               ></textarea>
-              <div
-                onClick={handleEnterClicked}
-                style={{
-                  position: "absolute",
-                  right: "2%",
-                  bottom: "6%",
-                  height: "30px",
-                  width: "30px",
-                  fontSize: "25px",
-                  overflowY: "hidden",
-                }}
-              >
+              <div onClick={handleEnterClicked} className={styles.enterIcon}>
                 <IoSend />
               </div>
             </div>
@@ -371,15 +268,13 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                         handleSelectColor(color);
                       }}
                       style={{
-                        width: "40px",
-                        height: "40px",
-                        borderRadius: "50%",
                         backgroundColor: `${color}`,
                         border: `${
                           color === backgroundColor ? "2px solid green" : ""
                         }`,
                       }}
                       key={color}
+                      className={styles.notesColorSelector}
                     ></div>
                   );
                 })}

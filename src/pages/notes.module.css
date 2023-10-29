@@ -68,7 +68,6 @@
   font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 97.688%; /* 26.376px */
   letter-spacing: 0.54px;
   overflow-y: hidden;
 }
@@ -105,25 +104,24 @@
 .createNotesModal{
   background-color: white;
   width: 45%;
-  height: 45%;
+  height: 40%;
   color: #000;
   font-family: Roboto;
-  font-size: 29px;
+  font-size: 18px;
   font-style: normal;
   font-weight: 500;
-  line-height: 160.188%; /* 46.454px */
   letter-spacing: 1.015px;
-  padding: 1.5rem 2.5rem 0 2.5rem;
+  padding: 1.5rem 2.5rem ;
   display: flex;
-  gap: 10px;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
+  gap: 10%;
   position: relative;
   border-radius: 8px;
 }
 
 .modalInnerContainer{
-  font-size: 24px;
+  font-size: 18px;
   letter-spacing: 0.9px;
   display: flex;
   justify-content: flex-start;
@@ -139,7 +137,7 @@
 }
 
 .inputGroupName{
-  font-size: 23px;  
+  font-size: 18px;  
   font-style: normal;
   font-weight: 400;
   letter-spacing: 0.805px;
@@ -154,6 +152,12 @@
 .inputGroupName::placeholder{
   color: #979797;
   padding-left: 10px;
+}
+
+.notesColorSelector{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .createButtonContainer{
@@ -189,7 +193,6 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 160.188%; /* 28.834px */
   letter-spacing: 0.63px;
   overflow-y: hidden;
   margin: 10px 0;
@@ -219,5 +222,107 @@
   background-position: center;
   width: 50%;
   height: 250px;
+}
+
+.contentArea{
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+.innerContentArea{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  height: auto;
+  width: 100%;
+}
+
+.pocketNotesText {
+  color: #000;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: normal;
+  letter-spacing: 1px;
+}
+
+.contentAreaSubheading{
+  color: #292929;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 32px; /* 145.455% */
+  letter-spacing: 0.44px;
+  width: 50%;
+}
+
+.encryptionText {
+  color: #292929;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: 0.44px;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.notesContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow-y: auto;
+}
+
+.notesContent{
+    padding: 2%;
+    /* display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center; */
+    gap: 10px;
+    height: 63%;
+    overflow-y: auto;
+}
+
+.notesText{
+  overflow-y: hidden;
+  height: auto;
+  width: 85%;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.textInputContainer{
+  width: 100%;
+  height: 25%;
+  background-color: #E8E8E8;
+  padding: 10px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.enterIcon{
+  position: absolute;
+  right: 2%;
+  bottom: 6%;
+  height: 30px;
+  width: 30px;
+  font-size: 25px;
+  overflow-y: hidden;
 }
 
