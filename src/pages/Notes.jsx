@@ -206,12 +206,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               {savedEntries?.length > 0 &&
                 savedEntries.map((entry, index) => (
                   <div key={index} className={styles.note}>
-                    <div
-                      style={{
-                        width: "15%",
-                        overflowY: "hidden",
-                      }}
-                    >
+                    <div className={styles.notesTime}>
                       <div
                         style={{
                           width: "100%",

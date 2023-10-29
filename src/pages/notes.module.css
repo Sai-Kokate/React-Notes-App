@@ -287,6 +287,11 @@
     overflow-y: auto;
 }
 
+.notesTime{
+  width: 15%;
+  overflow-y: hidden;
+}
+
 .notesText{
   overflow-y: hidden;
   height: auto;
@@ -390,6 +395,10 @@
     align-items: center;
   }
 
+  .notesTime{
+    width: 15%;
+  }
+  
   .notesText{
     width: 75%;
   }
