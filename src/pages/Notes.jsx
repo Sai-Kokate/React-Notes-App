@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import backgroundImage from "../assets/background.png";
 import { IoMdLock } from "react-icons/io";
 import { IoSend } from "react-icons/io5";
 import styles from "./notes.module.css";
@@ -156,20 +155,14 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 alignItems: "center",
                 gap: "10px",
                 height: "auto",
+                width: "100%",
               }}
             >
-              <div
-                style={{
-                  background: `url(${backgroundImage}) no-repeat center center`,
-                  backgroundSize: "cover",
-                  width: "626px",
-                  height: "313px",
-                }}
-              ></div>
+              <div className={styles.bgPic}></div>
               <div
                 style={{
                   color: "#000",
-                  fontSize: "50px",
+                  fontSize: "40px",
                   fontWeight: 400,
                   lineHeight: "normal",
                   letterSpacing: "1px",
@@ -180,12 +173,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               <div
                 style={{
                   color: "#292929",
-                  fontSize: "22px",
+                  fontSize: "18px",
                   fontWeight: "400",
                   lineHeight: "32px" /* 145.455% */,
                   letterSpacing: "0.44px",
-                  width: "646px",
-                  height: "64px",
+                  width: "50%",
                 }}
               >
                 Send and receive messages without keeping your phone online. Use
@@ -194,14 +186,18 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               <div
                 style={{
                   color: "#292929",
-                  fontSize: "22px",
+                  fontSize: "20px",
                   fontWeight: "400",
-                  lineHeight: "32px" /* 145.455% */,
                   letterSpacing: "0.44px",
                   position: "absolute",
                   bottom: "20px",
                   left: "50%",
                   transform: "translateX(-50%)",
+                  textAlign: "center",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: "5px",
                 }}
               >
                 <IoMdLock />
@@ -223,7 +219,9 @@ const Notes = ({ notesData, size, updateNotesData }) => {
               overflowY: "auto",
             }}
           >
-            <div style={{ height: "12%" }}>
+            <div
+            //  style={{ height: "12%" }}
+            >
               <div
                 className={styles.noteTitle}
                 style={{
@@ -245,10 +243,10 @@ const Notes = ({ notesData, size, updateNotesData }) => {
             <div
               style={{
                 padding: "2%",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "flex-start",
-                alignItems: "center",
+                // display: "flex",
+                // flexDirection: "column",
+                // justifyContent: "flex-start",
+                // alignItems: "center",
                 gap: "10px",
                 height: "63%",
                 overflowY: "auto",
@@ -259,6 +257,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                   <div key={index} className={styles.note}>
                     <div
                       style={{
+                        width: "15%",
                         overflowY: "hidden",
                       }}
                     >
@@ -268,7 +267,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                           minute: "2-digit",
                         })}
                       </div>
-                      <div>
+                      <div
+                        style={{
+                          width: "100%",
+                        }}
+                      >
                         {new Date(entry.timestamp).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "long",
@@ -279,6 +282,8 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                     <div
                       style={{
                         overflowY: "hidden",
+                        height: "auto",
+                        width: "85%",
                       }}
                     >
                       {entry.text}
@@ -303,6 +308,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                 onChange={(e) => setText(e.target.value)}
                 onKeyDown={handleKeyPress}
                 className={styles.textArea}
+                placeholder="Enter your text here..........."
               ></textarea>
               <div
                 onClick={handleEnterClicked}

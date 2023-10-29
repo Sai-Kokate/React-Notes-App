@@ -13,20 +13,19 @@
   width: 25%;
   height: 100%;
   padding: 2rem 1.5rem;
-  overflow-y: hidden;
 }
 
 .leftInnerContainer{
   padding: 0 1rem;
-  overflow-y: auto;
+  overflow-y: hidden;
 }
 
 .notesGroup{
   margin-top: 1.75rem;
   margin-right: -1.5rem;
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 10px; */
   overflow-y: auto;
 }
 
@@ -39,11 +38,13 @@
   padding: 15px 0;
   padding-left: 1rem;
   border-radius: 32px 0 0 32px;
+  /* width: 100%;
+  height: 60px; */
 }
 
 .noteIcon{
-  width: 69px;
-  height: 69px;
+  min-width: 50px;
+  min-height: 50px;
   color: white;
   border-radius: 50%;
   display: flex;
@@ -53,6 +54,8 @@
   font-weight: 500;
   letter-spacing: 0.5px;
   line-height: 24px;
+  /* width: 20%; */
+  height: 100%;
 }
 
 .createNotesButton{
@@ -67,6 +70,7 @@
   font-weight: 500;
   line-height: 97.688%; /* 26.376px */
   letter-spacing: 0.54px;
+  overflow-y: hidden;
 }
 
 .rightContainer{
@@ -101,7 +105,7 @@
 .createNotesModal{
   background-color: white;
   width: 45%;
-  height: 30%;
+  height: 45%;
   color: #000;
   font-family: Roboto;
   font-size: 29px;
@@ -115,6 +119,7 @@
   flex-direction: column;
   justify-content: flex-start;
   position: relative;
+  border-radius: 8px;
 }
 
 .modalInnerContainer{
@@ -143,6 +148,7 @@
   border-radius: 22px;
   border: 2px solid #CCC;
   padding: 2px;
+  padding-left: 10px;
 }
 
 .inputGroupName::placeholder{
@@ -186,6 +192,7 @@
   line-height: 160.188%; /* 28.834px */
   letter-spacing: 0.63px;
   overflow-y: hidden;
+  margin: 10px 0;
 }
 
 .textArea{
@@ -205,4 +212,12 @@
   letter-spacing: 0.596px;
 }
 
+.bgPic{
+  background-image: url(../assets/background.png);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center;
+  width: 50%;
+  height: 250px;
+}
 
