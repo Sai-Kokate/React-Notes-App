@@ -324,5 +324,80 @@
   width: 30px;
   font-size: 25px;
   overflow-y: hidden;
+  color: #ABABAB;
 }
 
+.backArrow{
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    flex-direction: column;
+  }
+
+  .leftContainer {
+    width: 100%;
+  }
+
+  .rightContainer {
+    display: none;
+    width: 100%;
+  }
+
+  .createNotesModal{
+    width: 80%;
+    height: 35%;
+    font-size: 14px;
+    padding: 1rem;
+    justify-content: space-around;
+  }
+  
+  .modalInnerContainer{
+    font-size: 14px;
+    gap: 1rem;
+  }
+  
+  .chooseColor{
+    gap: 5px;
+  }
+
+  .notesColorSelector{
+    width: 25px;
+    height: 25px;
+  }
+  
+  .inputGroupName{
+    font-size: 14px;  
+    letter-spacing: normal;
+    height: 30px;
+    width: 70%;
+    padding: 2px;
+    padding-left: 2px;
+  }
+
+  .createButtonContainer{
+    width: 100%;
+    height: 15%;
+    position:static;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .createButton{
+    width: 80%;
+    height: 100%;
+  }
+
+  .contentArea{
+    display: none;
+  }
+
+  .backArrow{
+    font-size: 24px;
+    display: flex;
+    align-items: center;
+  }
+
+}

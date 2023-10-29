@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { IoMdLock } from "react-icons/io";
-import { IoSend } from "react-icons/io5";
+import { IoSend, IoArrowBackOutline } from "react-icons/io5";
 import styles from "./notes.module.css";
 
 const Notes = ({ notesData, size, updateNotesData }) => {
@@ -11,6 +11,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
   const [shownotesContent, setShownotesContent] = useState(false);
   const [text, setText] = useState("");
   const [savedEntries, setSavedEntries] = useState([]);
+  const [rightContainerDisplay, setRightContainerDisplay] = useState(false);
 
   const openCreateNote = () => {
     setDisplayCreateNote(true);
@@ -35,6 +36,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
 
   const handleCreateNote = () => {
     setDisplayCreateNote(false);
+    if (groupName.trim() === "" || backgroundColor === "") {
+      setGroupName("");
+      setBackgroundColor("");
+      return;
+    }
     const newNote = {
       title: groupName,
       bgColor: backgroundColor,
@@ -56,31 +62,35 @@ const Notes = ({ notesData, size, updateNotesData }) => {
     setShownotesContent(true);
     setNoteSelected(note);
     setSavedEntries(note.content);
+    if (window.innerWidth <= 768) setRightContainerDisplay(true);
   };
 
   const updateNoteContent = () => {
-    const entry = {
-      text: text,
-      timestamp: new Date().toLocaleString(),
-    };
+    if (text.trim() !== "") {
+      const entry = {
+        text: text,
+        timestamp: new Date().toLocaleString(),
+      };
 
-    setSavedEntries([...savedEntries, entry]);
+      setSavedEntries([...savedEntries, entry]);
+      setText("");
+
+      const updatedNotesData = notesData.map((note) => {
+        if (note.key === noteSelected.key) {
+          return {
+            title: note.title,
+            bgColor: note.bgColor,
+            content: [...savedEntries, entry],
+            key: note.key,
+          };
+        } else {
+          return note;
+        }
+      });
+
+      updateNotesData(updatedNotesData, size);
+    }
     setText("");
-
-    const updatedNotesData = notesData.map((note) => {
-      if (note.key === noteSelected.key) {
-        return {
-          title: note.title,
-          bgColor: note.bgColor,
-          content: [...savedEntries, entry],
-          key: note.key,
-        };
-      } else {
-        return note;
-      }
-    });
-
-    updateNotesData(updatedNotesData, size);
   };
 
   const handleKeyPress = (event) => {
@@ -91,11 +101,21 @@ const Notes = ({ notesData, size, updateNotesData }) => {
 
   const handleEnterClicked = () => {
     updateNoteContent();
+    setText("");
+  };
+
+  const handleBackClicked = () => {
+    setRightContainerDisplay(false);
   };
 
   return (
     <div className={styles.container}>
-      <div className={styles.leftContainer}>
+      <div
+        className={styles.leftContainer}
+        style={{
+          display: rightContainerDisplay && "none",
+        }}
+      >
         <div className={styles.pocketNotesHeader}>Pocket Notes</div>
 
         <div className={styles.leftInnerContainer}>
@@ -133,7 +153,12 @@ const Notes = ({ notesData, size, updateNotesData }) => {
           </div>
         )}
       </div>
-      <div className={styles.rightContainer}>
+      <div
+        className={styles.rightContainer}
+        style={{
+          display: rightContainerDisplay ? "flex" : "",
+        }}
+      >
         {/* content area */}
         {!shownotesContent && (
           <div className={styles.contentArea}>
@@ -163,6 +188,9 @@ const Notes = ({ notesData, size, updateNotesData }) => {
                   borderRadius: "0",
                 }}
               >
+                <div className={styles.backArrow} onClick={handleBackClicked}>
+                  <IoArrowBackOutline />
+                </div>
                 <div
                   style={{
                     backgroundColor: `${noteSelected.bgColor}`,
