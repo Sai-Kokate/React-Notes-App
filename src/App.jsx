@@ -11,19 +11,11 @@ function App() {
       ? JSON.parse(localStorage.getItem("length"))
       : 0
   );
-  // const fetchLocalStorage = () => {
-  //   data = JSON.parse(localStorage.getItem("notes"));
-  //   setNotesData(data);
-  // };
 
   const setLocalStorage = () => {
     localStorage.setItem("notes", JSON.stringify(notesData));
     localStorage.setItem("length", JSON.stringify(notesLength));
   };
-
-  // useEffect(() => {
-  //   fetchLocalStorage();
-  // }, []);
 
   useEffect(() => {
     setLocalStorage();
