@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { IoMdLock } from "react-icons/io";
 import { IoSend, IoArrowBackOutline } from "react-icons/io5";
 import styles from "./notes.module.css";
+import ContentArea from "../components/ContentArea";
 
 const Notes = ({ notesData, size, updateNotesData }) => {
   const [displayCreateNote, setDisplayCreateNote] = useState(false);
@@ -94,8 +94,11 @@ const Notes = ({ notesData, size, updateNotesData }) => {
   };
 
   const handleKeyPress = (event) => {
-    if (event.key === "Enter" && text.trim() !== "") {
-      updateNoteContent();
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      if (text.trim() !== "") {
+        updateNoteContent();
+      }
     }
   };
 
@@ -160,22 +163,7 @@ const Notes = ({ notesData, size, updateNotesData }) => {
         }}
       >
         {/* content area */}
-        {!shownotesContent && (
-          <div className={styles.contentArea}>
-            <div className={styles.innerContentArea}>
-              <div className={styles.bgPic}></div>
-              <div className={styles.pocketNotesText}>Pocket Notes</div>
-              <div className={styles.contentAreaSubheading}>
-                Send and receive messages without keeping your phone online. Use
-                Pocket Notes on up to 4 linked devices and 1 mobile phone
-              </div>
-              <div className={styles.encryptionText}>
-                <IoMdLock />
-                end-to-end encrypted
-              </div>
-            </div>
-          </div>
-        )}
+        {!shownotesContent && <ContentArea />}
 
         {/* selected note content */}
         {shownotesContent && (
